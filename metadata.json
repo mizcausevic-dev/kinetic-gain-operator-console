@@ -1,0 +1,6 @@
+{
+  "name": "Kinetic Gain Operator Console",
+  "description": "Interactive visualization, live topology orchestration, and specification validation console for the Kinetic Gain Protocol Suite (AEO, Agent Cards, AI Evidence, Prompt Provenance, MCP Tool Cards, and EdTech trio).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
