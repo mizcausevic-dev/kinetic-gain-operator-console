@@ -34,14 +34,32 @@ export interface SpecField {
   vibeText?: string;
 }
 
+// ed25519 signature posture for a node's emitted/consumed event frames.
+export type SignatureStatus = 'verified' | 'unsigned' | 'expired';
+
+// Runtime policy gates that enforce Decision Cards inline on an edge.
+export type RuntimeGate =
+  | 'mcp_permission_broker'
+  | 'azure_openai_governance_bridge'
+  | 'sql_contract_enforcer';
+
 export interface TopologyNode {
   id: string;
   label: string;
-  type: 'publisher' | 'agent' | 'auditor' | 'search_engine' | 'classroom_hub';
+  type:
+    | 'publisher'
+    | 'agent'
+    | 'auditor'
+    | 'search_engine'
+    | 'classroom_hub'
+    | 'runtime_gate'
+    | 'spine'
+    | 'incident';
   status: 'active' | 'synced' | 'warn' | 'inactive';
   description: string;
   specsProduced: SpecType[];
   specsConsumed: SpecType[];
+  signature: SignatureStatus; // ed25519 key-chain posture for this node
   coordinates: { x: number; y: number }; // Percentage coords for interactive SVG canvas
   metrics: {
     cpu: number;
@@ -56,6 +74,7 @@ export interface TopologyLink {
   target: string;
   activeSpec: SpecType;
   trafficState: 'idle' | 'transmitting' | 'error';
+  gate?: RuntimeGate; // policy gate enforced inline on this edge, if any
 }
 
 export interface AuditPacket {

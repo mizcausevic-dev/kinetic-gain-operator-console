@@ -1,7 +1,7 @@
 {
   "name": "kinetic-gain-operator-console",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Mission-control operator console for the Kinetic Gain Protocol Suite — interactive topology mesh, spec playground, audit-stream spine, AEO reference stack, MCP tool shield, and a configurable operator dashboard with PDF export.",
   "author": "Miz Causevic <miz@kineticgain.com>",

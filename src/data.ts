@@ -384,7 +384,8 @@ export const initialTopologyNodes: TopologyNode[] = [
     description: 'The authoritative content server publishing structured, verified site facts.',
     specsProduced: ['aeo'],
     specsConsumed: [],
-    coordinates: { x: 15, y: 35 },
+    signature: 'verified',
+    coordinates: { x: 12, y: 22 },
     metrics: { cpu: 14, memory: '1.2 GB / 4 GB', throughput: '412 rps' }
   },
   {
@@ -395,19 +396,9 @@ export const initialTopologyNodes: TopologyNode[] = [
     description: 'Executes tools and routes client sub-agent behaviors within structured boundaries.',
     specsProduced: ['prompt_provenance', 'student_disclosure'],
     specsConsumed: ['agent_card', 'mcp_tool_card', 'tutor_card'],
-    coordinates: { x: 50, y: 35 },
+    signature: 'verified',
+    coordinates: { x: 42, y: 24 },
     metrics: { cpu: 52, memory: '6.4 GB / 16 GB', throughput: '1,890 rps' }
-  },
-  {
-    id: 'auditor_node',
-    label: 'Governance-Shield [Auditor]',
-    type: 'auditor',
-    status: 'synced',
-    description: 'Continuously hashes payloads to verify generation trust, provenance, and policy adherence.',
-    specsProduced: [],
-    specsConsumed: ['prompt_provenance', 'ai_evidence', 'student_disclosure'],
-    coordinates: { x: 50, y: 80 },
-    metrics: { cpu: 8, memory: '0.8 GB / 2 GB', throughput: '85 rps' }
   },
   {
     id: 'search_node',
@@ -417,7 +408,8 @@ export const initialTopologyNodes: TopologyNode[] = [
     description: 'Aggregates metadata claims and outputs cited citations dynamically to user agents.',
     specsProduced: ['ai_evidence'],
     specsConsumed: ['aeo', 'prompt_provenance'],
-    coordinates: { x: 85, y: 35 },
+    signature: 'expired',
+    coordinates: { x: 80, y: 22 },
     metrics: { cpu: 31, memory: '4.1 GB / 8 GB', throughput: '590 rps' }
   },
   {
@@ -428,20 +420,88 @@ export const initialTopologyNodes: TopologyNode[] = [
     description: 'Monitors student submissions and enforces acceptable student-AI tutor relationships.',
     specsProduced: ['classroom_aup', 'tutor_card'],
     specsConsumed: ['student_disclosure', 'tutor_card'],
-    coordinates: { x: 30, y: 65 },
+    signature: 'unsigned',
+    coordinates: { x: 14, y: 54 },
     metrics: { cpu: 18, memory: '1.5 GB / 4 GB', throughput: '124 rps' }
+  },
+  {
+    id: 'mcp_broker',
+    label: 'MCP Permission Broker [Gate]',
+    type: 'runtime_gate',
+    status: 'active',
+    description: 'Inline Decision-Card gate: evaluates tool-call requests against permission posture before grant.',
+    specsProduced: ['mcp_tool_card'],
+    specsConsumed: ['agent_card'],
+    signature: 'verified',
+    coordinates: { x: 49, y: 50 },
+    metrics: { cpu: 22, memory: '0.9 GB / 2 GB', throughput: '430 grants/s' }
+  },
+  {
+    id: 'azure_bridge',
+    label: 'Azure OpenAI Governance Bridge [Gate]',
+    type: 'runtime_gate',
+    status: 'active',
+    description: 'Governs model calls: enforces allow/deny tool baselines and re-stamps prompt provenance.',
+    specsProduced: ['prompt_provenance'],
+    specsConsumed: ['prompt_provenance', 'agent_card'],
+    signature: 'verified',
+    coordinates: { x: 67, y: 48 },
+    metrics: { cpu: 27, memory: '1.1 GB / 4 GB', throughput: '760 rps' }
+  },
+  {
+    id: 'auditor_node',
+    label: 'Governance-Shield [Auditor]',
+    type: 'auditor',
+    status: 'synced',
+    description: 'Continuously hashes payloads to verify generation trust, provenance, and policy adherence.',
+    specsProduced: [],
+    specsConsumed: ['prompt_provenance', 'ai_evidence', 'student_disclosure'],
+    signature: 'verified',
+    coordinates: { x: 30, y: 80 },
+    metrics: { cpu: 8, memory: '0.8 GB / 2 GB', throughput: '85 rps' }
+  },
+  {
+    id: 'spine_node',
+    label: 'AuditStream Spine [Hash-Chained Log]',
+    type: 'spine',
+    status: 'synced',
+    description: 'The tamper-evident, hash-chained governance log. Every event-kind producer terminates here.',
+    specsProduced: ['ai_evidence'],
+    specsConsumed: ['aeo', 'prompt_provenance', 'ai_evidence', 'student_disclosure', 'classroom_aup', 'mcp_tool_card'],
+    signature: 'verified',
+    coordinates: { x: 56, y: 82 },
+    metrics: { cpu: 11, memory: '2.3 GB / 8 GB', throughput: '3,240 events/s' }
+  },
+  {
+    id: 'incident_node',
+    label: 'Incident Correlator [Blast Radius]',
+    type: 'incident',
+    status: 'warn',
+    description: 'Reads the spine to correlate AI incidents and trace every downstream-affected spec surface.',
+    specsProduced: [],
+    specsConsumed: ['ai_evidence'],
+    signature: 'verified',
+    coordinates: { x: 85, y: 72 },
+    metrics: { cpu: 6, memory: '0.6 GB / 2 GB', throughput: '12 incidents/h' }
   }
 ];
 
 export const initialTopologyLinks: TopologyLink[] = [
   { id: 'link_aeo_flow', source: 'pub_node', target: 'search_node', activeSpec: 'aeo', trafficState: 'idle' },
-  { id: 'link_mcp_ops', source: 'pub_node', target: 'agent_node', activeSpec: 'aeo', trafficState: 'idle' },
-  { id: 'link_prov_flow', source: 'agent_node', target: 'search_node', activeSpec: 'prompt_provenance', trafficState: 'idle' },
+  { id: 'link_pub_agent', source: 'pub_node', target: 'agent_node', activeSpec: 'aeo', trafficState: 'idle' },
+  { id: 'link_agent_azure', source: 'agent_node', target: 'azure_bridge', activeSpec: 'prompt_provenance', trafficState: 'idle', gate: 'azure_openai_governance_bridge' },
+  { id: 'link_azure_search', source: 'azure_bridge', target: 'search_node', activeSpec: 'prompt_provenance', trafficState: 'idle' },
+  { id: 'link_agent_mcp', source: 'agent_node', target: 'mcp_broker', activeSpec: 'mcp_tool_card', trafficState: 'idle', gate: 'mcp_permission_broker' },
+  { id: 'link_mcp_agent', source: 'mcp_broker', target: 'agent_node', activeSpec: 'mcp_tool_card', trafficState: 'idle', gate: 'mcp_permission_broker' },
   { id: 'link_evid_route', source: 'search_node', target: 'auditor_node', activeSpec: 'ai_evidence', trafficState: 'idle' },
-  { id: 'link_audit_prov', source: 'agent_node', target: 'auditor_node', activeSpec: 'prompt_provenance', trafficState: 'idle' },
   { id: 'link_edu_aup', source: 'classroom_node', target: 'agent_node', activeSpec: 'classroom_aup', trafficState: 'idle' },
   { id: 'link_edu_disclosure', source: 'agent_node', target: 'classroom_node', activeSpec: 'student_disclosure', trafficState: 'idle' },
-  { id: 'link_edu_audit', source: 'classroom_node', target: 'auditor_node', activeSpec: 'student_disclosure', trafficState: 'idle' }
+  { id: 'link_edu_audit', source: 'classroom_node', target: 'auditor_node', activeSpec: 'student_disclosure', trafficState: 'idle', gate: 'sql_contract_enforcer' },
+  { id: 'link_audit_spine', source: 'auditor_node', target: 'spine_node', activeSpec: 'ai_evidence', trafficState: 'idle' },
+  { id: 'link_agent_spine', source: 'agent_node', target: 'spine_node', activeSpec: 'prompt_provenance', trafficState: 'idle' },
+  { id: 'link_azure_spine', source: 'azure_bridge', target: 'spine_node', activeSpec: 'prompt_provenance', trafficState: 'idle' },
+  { id: 'link_mcp_spine', source: 'mcp_broker', target: 'spine_node', activeSpec: 'mcp_tool_card', trafficState: 'idle' },
+  { id: 'link_spine_incident', source: 'spine_node', target: 'incident_node', activeSpec: 'ai_evidence', trafficState: 'idle' }
 ];
 
 export const initialMcpTools: McpTool[] = [

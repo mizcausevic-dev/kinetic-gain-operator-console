@@ -12,7 +12,7 @@ Six surfaces, one console, built for the person who *runs* a governed AI platfor
 
 | Tab | What it shows |
 | --- | --- |
-| **Topology Mesh** | Interactive node graph of the Suite's producers/consumers, with per-node telemetry (CPU, throughput, memory), produces/consumes spec chips, transmitting + heatmap modes, and a node inspector |
+| **Topology Mesh** *(v0.2)* | 9-node graph of the Suite's producers/consumers plus the three runtime gates (MCP Permission Broker, Azure OpenAI Governance Bridge, SQL Contract Enforcer), the hash-chained AuditStream spine, and an Incident Correlator. Four view modes — **flow**, latency **heatmap**, **ed25519 signature posture**, and **runtime-gate** overlay — plus **blast-radius tracing** (click a node → highlight every downstream-affected surface), per-node telemetry, and a node inspector |
 | **Spec Playground** | Live exploration of the eleven Suite specifications |
 | **AuditStream Spine** | Real-time governance event stream visualization over the hash-chained, tamper-evident log |
 | **AEO Reference Stack** | The five-layer AEO consumption stack (SDKs → CLI → crawler → validator → graph explorer) |
@@ -40,11 +40,11 @@ The showpiece. A configurable operator surface with:
 
 ## Honest framing
 
-**v0.1 is a high-fidelity simulation.** The telemetry, packet flow, and node metrics are driven by `src/data.ts` (synthetic) — this is a *showcase and design reference* for what the governed-AI control plane looks like, not a live feed off production. The roadmap (below) wires individual panels to the real Suite services.
+**v0.2 is a high-fidelity simulation.** The telemetry, packet flow, node metrics, signature posture, and gate decisions are driven by `src/data.ts` (synthetic) — this is a *showcase and design reference* for what the governed-AI control plane looks like, not a live feed off production. The mesh topology, runtime gates, and blast-radius semantics mirror the real Suite architecture; the roadmap (below) wires individual panels to the live Suite services.
 
 ## Stack
 
-React 19 · Vite · Tailwind CSS v4 · Framer Motion · lucide-react · jspdf + html2canvas (PDF export) · `@google/genai` (optional AI assist). The PDF-export deps are split into their own chunk so the initial load stays light (~118 KB gzipped main bundle).
+React 19 · Vite · Tailwind CSS v4 · Framer Motion · lucide-react · jspdf + html2canvas (PDF export) · `@google/genai` (optional AI assist). The PDF-export deps are split into their own chunk so the initial load stays light (~121 KB gzipped main bundle).
 
 ## Run
 
@@ -57,10 +57,14 @@ npm run preview   # serve the build
 
 Optional: set `GEMINI_API_KEY` in `.env.local` (see `.env.example`) to enable the AI-assist features. The console runs fully without it.
 
+## Shipped in v0.2
+
+- **Topology Mesh expansion.** The mesh grew from 5 to 9 nodes — producers/consumers plus the three runtime gates (`mcp-permission-broker`, `azure-openai-governance-bridge`, `sql-contract-enforcer`), the hash-chained AuditStream spine, and an Incident Correlator. Added a **blast-radius** mode (click any node → highlight every downstream-affected surface via directed-graph closure, mirroring `incident-correlation-rs`), **ed25519 signature-status** node coloring, and a **runtime-gate** overlay that marks every policy-enforced edge with a Decision-Card shield. Distinct node shapes per kind (gate, spine, incident).
+
 ## Roadmap
 
-- **v0.2 — wire one panel to real data.** Point the AuditStream Spine at a live [`audit-stream-py`](https://github.com/mizcausevic-dev/audit-stream-py) SSE endpoint (`GET /events/stream`) so at least one surface shows the real, hash-chained governance log.
-- **Topology Mesh expansion.** Animate producer→spine edges by the *actual* 11 event-kind producers; add a "blast-radius" mode (click an AI Incident Card node → highlight every downstream affected spec, mirroring `incident-correlation-rs`); ed25519 signature-status node coloring; overlay the runtime gates (`mcp-permission-broker`, `azure-openai-governance-bridge`) on the edges.
+- **v0.3 — wire one panel to real data.** Point the AuditStream Spine at a live [`audit-stream-py`](https://github.com/mizcausevic-dev/audit-stream-py) SSE endpoint (`GET /events/stream`) so at least one surface shows the real, hash-chained governance log.
+- **Animate producer→spine edges by the actual event-kind producers** off the live spine schema.
 - **Lazy-load PDF export** at the call site so the chunk only loads on export.
 - **Real MCP Tool Shield** wired to `mcp-kinetic-gain` tool metadata.
 
