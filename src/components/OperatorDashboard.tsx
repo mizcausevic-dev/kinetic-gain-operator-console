@@ -485,7 +485,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     doc.setFont("helvetica", "italic");
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139); // slate 500
-    doc.text("SYSTEM JITTER METRIC STATUS REPORT // STANDALONE PRODUCTION ENVIRONMENT", 16, 29);
+    doc.text("SYSTEM JITTER METRIC STATUS REPORT // SIMULATED DEMONSTRATION DATA, NOT LIVE", 16, 29);
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -533,7 +533,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     drawStat("HIGHEST PEAK RECORDED", `${max} ms`, "Maximum jitter spike overhead in rolling view");
     drawStat("OPTIMAL NOMINAL TRANSIT", `${min} ms`, "Best performance speed observed in the logs");
     drawStat("CRITICAL SLA OVERRUNS", `${breachPercentage}%`, "Fraction of time intervals exceeding limits");
-    drawStat("ALARM GATE STATUS", avg > thresh ? "SLA BREACH / ATTENTION REQUIRED" : "COMPLIANCE VERIFIED", "Automatic SRE status classification");
+    drawStat("ALARM GATE STATUS", avg > thresh ? "THRESHOLD EXCEEDED (SIMULATED)" : "NOMINAL (SIMULATED)", "Automatic SRE status classification");
     
     // Mid Divider
     doc.setLineWidth(0.5);
@@ -656,11 +656,11 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     doc.setTextColor(71, 85, 105);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
-    doc.text("CONFIDENTIAL SYSTEM METRIC REGISTRY. ALL VALUES LOGGED SECURELY IN CORRESPONDENCE WITH INTEGRATIVE TELEMETRY RULES.", 14, 275);
-    doc.text("AI STUDIO BUILD PRODUCTION ENVIRONMENT PORT:3000 SECURITY VERIFIED.", 14, 281);
-    
-    doc.save(`sre-compliance-jitter-report-${Date.now()}.pdf`);
-    onAddLog("Successfully outputted SRE PDF compliance report matching active visual jitter waveforms.", "aeo", "valid");
+    doc.text("SIMULATED DATA FOR DEMONSTRATION. NOT A LIVE FEED OFF PRODUCTION -- SEE README \"HONEST FRAMING\".", 14, 275);
+    doc.text("Kinetic Gain Operator Console v0.2 -- github.com/mizcausevic-dev/kinetic-gain-operator-console", 14, 281);
+
+    doc.save(`kinetic-gain-console-demo-export-${Date.now()}.pdf`);
+    onAddLog("Exported simulated demo PDF matching the active jitter waveform view.", "aeo", "valid");
   };
 
   // Stress-test manual burst
