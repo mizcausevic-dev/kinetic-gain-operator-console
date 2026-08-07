@@ -103,6 +103,12 @@ export default function App() {
             <div className="flex items-center gap-2">
               <h1 className="text-xs font-bold text-white tracking-tight uppercase">KINETIC-GAIN // PROTOCOL_SUITE</h1>
               <span className="text-[8px] px-1 py-0.2 rounded-sm bg-cyan-950/40 border border-cyan-800/40 text-cyan-400 font-mono font-bold uppercase tracking-widest hidden sm:inline">Suite v1.4</span>
+              <span
+                className="text-[8px] px-1 py-0.2 rounded-sm bg-amber-950/40 border border-amber-700/40 text-amber-400 font-mono font-bold uppercase tracking-widest"
+                title="A high-fidelity simulation of what the governed-AI control plane looks like. Telemetry, packet flow, node metrics, and gate decisions are synthetic, not a live feed off production."
+              >
+                Simulated data
+              </span>
             </div>
           </div>
 

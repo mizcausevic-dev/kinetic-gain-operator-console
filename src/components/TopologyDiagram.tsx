@@ -442,7 +442,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
             </div>
           )}
 
-          <svg className="w-full h-full min-h-[360px]" style={{ touchAction: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="none">
+          <svg className="w-full h-full min-h-[360px]" style={{ touchAction: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
             {/* Draw pathways */}
             {links.map(link => {
               const src = nodes.find(n => n.id === link.source);
