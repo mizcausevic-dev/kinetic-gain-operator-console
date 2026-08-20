@@ -1,0 +1,76 @@
+name: Build verification
+
+# BUILD ONLY. This workflow does not deploy.
+#
+# Deployment to console.kineticgain.com is manual, over SSH/SFTP on port 65002
+# to the Hostinger web estate. The FTP deploy step that used to live here was
+# removed 2026-08-20 for three reasons, in order of weight:
+#
+#   1. It raced the SSH path. Both wrote to the same docroot and the last writer
+#      won, with nothing surfacing the conflict.
+#   2. FTP from shared GitHub runner IPs is unreliable against this host
+#      (control-socket timeouts traced to IP reputation; the documented fix is
+#      SSH-key SFTP on 65002, which is what the manual path already uses).
+#      This repo's FTP step had in fact been failing "530 Login incorrect" on
+#      every push against stale FTP_HOST/FTP_USER/FTP_PASS secrets, so the red
+#      X on this workflow had stopped carrying information some time ago.
+#   3. It required live production FTP credentials in repo secrets.
+#
+# What remains still earns its place: it proves the build compiles and that the
+# built HTML actually contains the brand marker, so a broken build is caught
+# here rather than discovered at deploy time.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-kinetic-gain-operator-console
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build + verify output
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f dist/index.html || (echo "FAIL: dist/index.html missing" && exit 1)
+          grep -q "Kinetic Gain Operator Console" dist/index.html || \
+            (echo "FAIL: dist/index.html missing brand string" && exit 1)
+          test -f dist/favicon.svg  || (echo "FAIL: dist/favicon.svg missing" && exit 1)
+          test -f dist/robots.txt   || (echo "FAIL: dist/robots.txt missing" && exit 1)
+          test -f dist/sitemap.xml  || (echo "FAIL: dist/sitemap.xml missing" && exit 1)
+          grep -q "application/ld+json" dist/index.html || \
+            (echo "FAIL: JSON-LD block missing" && exit 1)
+          grep -qi "#0B0C10" dist/index.html dist/assets/*.css || \
+            (echo "FAIL: canonical BERT ground #0B0C10 not present in build" && exit 1)
+          echo "OK: build verified"
+          ls -lah dist/
+
+      # No deploy step, and deliberately no live-site check either. A curl
+      # against the production URL from here would report on whatever the last
+      # SSH deploy put there, not on the commit this run just built - a green
+      # check that proves nothing about this build. Verifying the artifact
+      # above is the honest boundary of what a build job can assert.
