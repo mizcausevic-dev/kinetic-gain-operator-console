@@ -385,7 +385,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['aeo'],
     specsConsumed: [],
     signature: 'verified',
-    coordinates: { x: 12, y: 22 },
+    coordinates: { x: 8, y: 25 },
     metrics: { cpu: 14, memory: '1.2 GB / 4 GB', throughput: '412 rps' }
   },
   {
@@ -397,7 +397,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['prompt_provenance', 'student_disclosure'],
     specsConsumed: ['agent_card', 'mcp_tool_card', 'tutor_card'],
     signature: 'verified',
-    coordinates: { x: 42, y: 24 },
+    coordinates: { x: 28, y: 50 },
     metrics: { cpu: 52, memory: '6.4 GB / 16 GB', throughput: '1,890 rps' }
   },
   {
@@ -409,7 +409,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['ai_evidence'],
     specsConsumed: ['aeo', 'prompt_provenance'],
     signature: 'expired',
-    coordinates: { x: 80, y: 22 },
+    coordinates: { x: 70, y: 50 },
     metrics: { cpu: 31, memory: '4.1 GB / 8 GB', throughput: '590 rps' }
   },
   {
@@ -421,7 +421,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['classroom_aup', 'tutor_card'],
     specsConsumed: ['student_disclosure', 'tutor_card'],
     signature: 'unsigned',
-    coordinates: { x: 14, y: 54 },
+    coordinates: { x: 8, y: 75 },
     metrics: { cpu: 18, memory: '1.5 GB / 4 GB', throughput: '124 rps' }
   },
   {
@@ -433,7 +433,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['mcp_tool_card'],
     specsConsumed: ['agent_card'],
     signature: 'verified',
-    coordinates: { x: 49, y: 50 },
+    coordinates: { x: 48, y: 25 },
     metrics: { cpu: 22, memory: '0.9 GB / 2 GB', throughput: '430 grants/s' }
   },
   {
@@ -445,7 +445,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['prompt_provenance'],
     specsConsumed: ['prompt_provenance', 'agent_card'],
     signature: 'verified',
-    coordinates: { x: 67, y: 48 },
+    coordinates: { x: 48, y: 75 },
     metrics: { cpu: 27, memory: '1.1 GB / 4 GB', throughput: '760 rps' }
   },
   {
@@ -457,7 +457,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: [],
     specsConsumed: ['prompt_provenance', 'ai_evidence', 'student_disclosure'],
     signature: 'verified',
-    coordinates: { x: 30, y: 80 },
+    coordinates: { x: 92, y: 50 },
     metrics: { cpu: 8, memory: '0.8 GB / 2 GB', throughput: '85 rps' }
   },
   {
@@ -469,7 +469,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: ['ai_evidence'],
     specsConsumed: ['aeo', 'prompt_provenance', 'ai_evidence', 'student_disclosure', 'classroom_aup', 'mcp_tool_card'],
     signature: 'verified',
-    coordinates: { x: 56, y: 82 },
+    coordinates: { x: 110, y: 50 },
     metrics: { cpu: 11, memory: '2.3 GB / 8 GB', throughput: '3,240 events/s' }
   },
   {
@@ -481,7 +481,7 @@ export const initialTopologyNodes: TopologyNode[] = [
     specsProduced: [],
     specsConsumed: ['ai_evidence'],
     signature: 'verified',
-    coordinates: { x: 85, y: 72 },
+    coordinates: { x: 126, y: 50 },
     metrics: { cpu: 6, memory: '0.6 GB / 2 GB', throughput: '12 incidents/h' }
   }
 ];
