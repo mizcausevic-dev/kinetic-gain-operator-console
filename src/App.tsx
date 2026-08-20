@@ -292,6 +292,13 @@ export default function App() {
             </div>
 
             <div className="text-[9px] font-mono text-slate-600 text-right w-full md:w-auto shrink-0 leading-none">
+              <a
+                href="https://kineticgain.com/"
+                className="text-slate-500 hover:text-cyan-400 transition-colors underline decoration-slate-700 hover:decoration-cyan-400 underline-offset-2"
+              >
+                Part of the Kinetic Gain estate &rarr; kineticgain.com
+              </a>
+              <span className="mx-1.5 text-slate-800">|</span>
               KINETIC GAIN PROTOCOL OPERATOR // BUILD VERIFIED OK
             </div>
           </div>
