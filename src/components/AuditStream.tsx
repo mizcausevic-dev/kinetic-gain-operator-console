@@ -119,7 +119,7 @@ export default function AuditStream({
     switch (status) {
       case 'valid': return <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />;
       case 'warning': return <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />;
-      case 'invalid': return <XCircle className="h-3.5 w-3.5 text-rose-500 animate-pulse" />;
+      case 'invalid': return <XCircle className="h-3.5 w-3.5 text-rose-400 animate-pulse" />;
       default: return null;
     }
   };
@@ -154,7 +154,7 @@ export default function AuditStream({
     <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">
       
       {/* Scroll Spine list area */}
-      <div className="xl:col-span-3 bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '520px' }}>
+      <div className="xl:col-span-3 bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '520px' }}>
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Controls toolbar */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-3 mb-3">
@@ -172,7 +172,7 @@ export default function AuditStream({
                 onClick={() => setIsPaused(!isPaused)}
                 className={`p-1 px-2.5 rounded-sm text-[9px] font-mono font-bold transition-all flex items-center gap-1 border uppercase ${
                   isPaused 
-                    ? 'bg-cyan-600 hover:bg-cyan-500 text-white' 
+                    ? 'bg-cyan-500 hover:bg-cyan-400 text-on-accent' 
                     : 'bg-slate-900 hover:bg-slate-850 text-slate-400 border-slate-800'
                 }`}
               >
@@ -292,7 +292,7 @@ export default function AuditStream({
       </div>
 
       {/* Packet Inspector Drawer & Custom Event Injector console */}
-      <div className="bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between select-none">
+      <div className="bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between select-none">
         <div className="flex-1 flex flex-col justify-between space-y-4">
           {/* Section 1: Selected Packet Details */}
           <div>
@@ -325,7 +325,7 @@ export default function AuditStream({
                   </div>
                   <div className="flex justify-between border-t border-slate-900 pt-1">
                     <span>CHECKSUM:</span>
-                    <span className="text-cyan-455 font-bold text-[10px]">{selectedPacket.verificationHash}</span>
+                    <span className="text-cyan-450 font-bold text-[10px]">{selectedPacket.verificationHash}</span>
                   </div>
                 </div>
 
@@ -354,7 +354,7 @@ export default function AuditStream({
             <div className="space-y-2 font-mono text-xs">
               {/* Spec selection in dropdown */}
               <div className="space-y-1">
-                <label className="text-slate-555 text-[9px] uppercase font-bold">Payload Template Spec</label>
+                <label className="text-slate-550 text-[9px] uppercase font-bold">Payload Template Spec</label>
                 <select
                   value={injSpec}
                   onChange={(e) => setInjSpec(e.target.value as SpecType)}
@@ -368,7 +368,7 @@ export default function AuditStream({
 
               {/* Sender node selections */}
               <div className="space-y-1">
-                <label className="text-slate-555 text-[9px] uppercase font-bold">Emitter Egress Node</label>
+                <label className="text-slate-550 text-[9px] uppercase font-bold">Emitter Egress Node</label>
                 <select
                   value={injSender}
                   onChange={(e) => setInjSender(e.target.value)}
@@ -389,7 +389,7 @@ export default function AuditStream({
                     onClick={() => setInjStatus(style)}
                     className={`p-1 border rounded-sm text-[9.5px] font-bold uppercase text-center transition-all ${
                       injStatus === style 
-                        ? style === 'valid' ? 'bg-[#090b10] border-emerald-500/80 text-emerald-400' : style === 'warning' ? 'bg-[#090b10] border-amber-500/85 text-amber-400' : 'bg-[#090b10] border-rose-500/85 text-rose-455'
+                        ? style === 'valid' ? 'bg-slate-850 border-emerald-500/80 text-emerald-400' : style === 'warning' ? 'bg-slate-850 border-amber-500/85 text-amber-400' : 'bg-slate-850 border-rose-500/85 text-rose-450'
                         : 'bg-black border-slate-850 text-slate-650 hover:text-slate-300'
                     }`}
                   >
@@ -405,21 +405,21 @@ export default function AuditStream({
                   placeholder="key override"
                   value={injCustomFieldKey}
                   onChange={(e) => setInjCustomFieldKey(e.target.value)}
-                  className="bg-black border border-slate-800 rounded-sm p-1 text-[9.5px] text-cyan-400 placeholder-slate-700 font-bold focus:outline-none focus:border-cyan-500"
+                  className="bg-black border border-slate-800 rounded-sm p-1 text-[9.5px] text-cyan-400 placeholder-slate-650 font-bold focus:outline-none focus:border-cyan-500"
                 />
                 <input
                   type="text"
                   placeholder="override value"
                   value={injCustomFieldValue}
                   onChange={(e) => setInjCustomFieldValue(e.target.value)}
-                  className="bg-black border border-slate-800 rounded-sm p-1 text-[9.5px] text-slate-350 placeholder-slate-705 font-semibold focus:outline-none focus:border-cyan-500"
+                  className="bg-black border border-slate-800 rounded-sm p-1 text-[9.5px] text-slate-350 placeholder-slate-650 font-semibold focus:outline-none focus:border-cyan-500"
                 />
               </div>
 
               {/* Submit Trigger Injection */}
               <button
                 onClick={handleInjectPacket}
-                className="w-full bg-cyan-600 hover:bg-cyan-500 p-2 mt-1 rounded-sm text-white font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all focus:outline-none active:scale-95 shadow-md shadow-cyan-500/10"
+                className="w-full bg-cyan-500 hover:bg-cyan-400 p-2 mt-1 rounded-sm text-on-accent font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-1.5 transition-all focus:outline-none active:scale-95 shadow-md shadow-cyan-500/10"
               >
                 <Send className="h-3 w-3 fill-white" />
                 Inject Protocol Frame

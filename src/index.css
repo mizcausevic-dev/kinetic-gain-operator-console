@@ -1,8 +1,145 @@
 @import url('/assets/fonts.css');
 @import "tailwindcss";
 
+/*
+  KINETIC GAIN ESTATE PALETTE - BERT dark-cyan.
+  Shared with kineticgain.com (apex) and suite.kineticgain.com.
+
+  This @theme block is the single source of truth for colour in this app.
+  Tailwind v4 generates every colour utility from these --color-* variables,
+  so redefining a value here repaints all ~1,000 existing utility occurrences
+  without touching a component. Do not add a parallel :root palette.
+
+  Canonical role -> token that carries it:
+    --bg        #0B0C10  slate-950   page ground
+    --panel     #1F2833  slate-850   raised surface
+    --panel-2   #161D26  slate-900   deeper inset
+    --border    #2B3A46  slate-800   hairline
+    --text      #C5C6C7  slate-300   body copy
+    --head      #EAF6F5  slate-100   headings
+    --muted     #99A3AD  slate-500   secondary reading text
+    --faint     #8C98A2  slate-650   metadata (readable floor)
+    --accent    #66FCF1  cyan-400    links, stat numbers, active state
+    --accent2   #45A29E  cyan-500    solid button/badge fills
+    --on-accent #0F172A  (literal)   text on teal fills, never white
+    danger      #F2495C  rose-500
+    warn        #E0A43A  amber-400
+    success     #4ADE80  emerald-400
+
+  CONTRAST CONTRACT (WCAG 2.1 AA, computed not eyeballed):
+  --panel #1F2833 is LIGHTER than --bg #0B0C10, so the panel is the binding
+  constraint. Every shade in the readable band (100-650) clears 4.5:1 against
+  #1F2833; the floor is slate-650 #8C98A2 at 5.06:1. Shades 700-950 are
+  structural only (borders, surfaces, ghosted empty-state icons, chevrons,
+  underline decoration) and carry no body text. Before darkening anything in
+  the 100-650 band, re-check it against #1F2833, not against #0B0C10.
+*/
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-}
 
+  /* Ground and ink. bg-black is a surface here, not pure black. */
+  --color-black: #0B0C10;
+  --color-white: #EAF6F5;
+
+  /* Text on a solid accent fill. Dark slate, never white: white on teal
+     lands at 4.19:1 and fails AA. text-on-accent on cyan-500 is 5.88:1. */
+  --color-on-accent: #0F172A;
+
+  /* ---- slate: the neutral ramp (surfaces + all reading text) ---- */
+  --color-slate-50: #F5FAFA;
+  --color-slate-100: #EAF6F5; /* --head */
+  --color-slate-200: #DCE4E7;
+  --color-slate-300: #C5C6C7; /* --text */
+  --color-slate-350: #B9C2C8;
+  --color-slate-400: #ADB7BF;
+  --color-slate-450: #A6B0B9;
+  --color-slate-500: #99A3AD; /* --muted */
+  --color-slate-550: #939EA8;
+  --color-slate-600: #8F9AA4;
+  --color-slate-650: #8C98A2; /* --faint, readable floor 5.06:1 on --panel */
+  --color-slate-700: #5F6A75; /* structural: chevrons, pipes, underline decoration */
+  --color-slate-800: #2B3A46; /* --border */
+  --color-slate-850: #1F2833; /* --panel */
+  --color-slate-900: #161D26; /* --panel-2 */
+  --color-slate-950: #0B0C10; /* --bg */
+
+  /* ---- cyan: brand accent. 400 = --accent, 500 = --accent2 fills ---- */
+  --color-cyan-50: #E6FFFD;
+  --color-cyan-100: #C6FEFA;
+  --color-cyan-200: #A5FDF7;
+  --color-cyan-300: #8FFDF5;
+  --color-cyan-400: #66FCF1; /* --accent */
+  --color-cyan-450: #57E5DB;
+  --color-cyan-500: #45A29E; /* --accent2, solid fills */
+  --color-cyan-550: #3E918D;
+  --color-cyan-600: #35807C;
+  --color-cyan-700: #276765;
+  --color-cyan-800: #1E4F4E;
+  --color-cyan-900: #163B3C;
+  --color-cyan-950: #0E2426;
+
+  /* ---- emerald: success. Pushed green so it never reads as brand cyan. ---- */
+  --color-emerald-300: #86EFAC;
+  --color-emerald-400: #4ADE80;
+  --color-emerald-450: #41D274;
+  --color-emerald-500: #2FBF63;
+  --color-emerald-600: #24A052;
+  --color-emerald-700: #1B7C3F;
+  --color-emerald-800: #135A2D;
+  --color-emerald-900: #0F3D22;
+  --color-emerald-950: #0A2617;
+
+  /* ---- rose: danger. 500 = canonical #F2495C, fills/borders only. ---- */
+  --color-rose-200: #FBD5DA;
+  --color-rose-300: #F98CA0;
+  --color-rose-400: #F5697A; /* danger-as-text, 5.10:1 on --panel */
+  --color-rose-450: #F35C6E;
+  --color-rose-500: #F2495C; /* danger fill/border, 4.17:1 on --panel: not for text */
+  --color-rose-600: #D63A4D;
+  --color-rose-700: #A82C3C;
+  --color-rose-800: #7A2130;
+  --color-rose-900: #4A1620;
+  --color-rose-950: #2A0F16;
+  --color-red-400: #F5697A;
+
+  /* ---- amber: warn ---- */
+  --color-amber-400: #E0A43A; /* warn */
+  --color-amber-450: #D89A31;
+  --color-amber-500: #CE9128;
+  --color-amber-600: #A87322;
+  --color-amber-700: #7E5518;
+  --color-amber-800: #5C3E12;
+  --color-amber-900: #3D2A0D;
+  --color-amber-950: #241905;
+  --color-yellow-200: #F6E3A1;
+  --color-yellow-400: #E8C23F;
+  --color-yellow-500: #D9B133;
+
+  /* ---- categorical hues: topology node classes + chart series ---- */
+  --color-teal-400: #3FBFA8;
+  --color-teal-500: #2FA893;
+  --color-violet-300: #C4B5FD;
+  --color-violet-400: #A78BFA;
+  --color-violet-500: #8B6FF5;
+  --color-violet-800: #3E2A78;
+  --color-violet-900: #2C1D57;
+  --color-violet-950: #1B1238;
+  --color-purple-400: #C084FC;
+  --color-purple-500: #A855F7;
+  --color-purple-900: #3B1D5E;
+  --color-purple-950: #26123D;
+  --color-indigo-400: #9AA5FB;
+  --color-indigo-500: #7C8AF8;
+  --color-indigo-650: #8A95F0;
+  --color-indigo-950: #1A1D48;
+  --color-blue-400: #7DB4FB;
+  --color-blue-500: #5A9BF7;
+  --color-blue-900: #1A3560;
+  --color-blue-950: #11223F;
+  --color-pink-400: #F472B6;
+  --color-pink-500: #EC5A9F;
+  --color-pink-900: #5C1D3E;
+  --color-pink-950: #3D1229;
+}

@@ -221,8 +221,8 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
                 onClick={() => handleSpecChange(spec.id)}
                 className={`w-full text-left p-2.5 rounded-sm border font-mono transition-all flex items-start gap-2.5 ${
                   isSelected 
-                    ? 'bg-cyan-950/15 border-cyan-600/40 text-slate-100 shadow-[0_0_8px_rgba(6,182,212,0.05)]' 
-                    : 'bg-[#07080c] border-slate-850/80 text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
+                    ? 'bg-cyan-950/15 border-cyan-600/40 text-slate-100 shadow-[0_0_8px_rgba(69,162,158,0.05)]' 
+                    : 'bg-slate-900 border-slate-850/80 text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
                 }`}
               >
                 <div className="mt-0.5 shrink-0">
@@ -261,7 +261,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
       </div>
 
       {/* Main Spec Info & Schema Parameters Block */}
-      <div className="xl:col-span-5 bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between">
+      <div className="xl:col-span-5 bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between">
         <div className="space-y-4">
           {/* Header */}
           <div className="border-b border-slate-800 pb-2.5">
@@ -291,7 +291,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
             <div className="border border-slate-800/80 rounded-sm overflow-hidden bg-black/40 max-h-[220px] overflow-y-auto">
               <table className="w-full text-left border-collapse text-xs font-mono">
                 <thead>
-                  <tr className="bg-[#090b10] text-slate-400 text-[9px] border-b border-slate-800 font-bold uppercase tracking-wide">
+                  <tr className="bg-slate-850 text-slate-400 text-[9px] border-b border-slate-800 font-bold uppercase tracking-wide">
                     <th className="p-2">FIELD</th>
                     <th className="p-2">TYPE</th>
                     <th className="p-2">REQ</th>
@@ -303,7 +303,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
                     <tr key={field.name} className="hover:bg-slate-900/40 text-slate-300">
                       <td className="p-2 font-bold text-cyan-450">{field.name}</td>
                       <td className="p-2">
-                        <span className="text-[9px] px-1 bg-[#090b10] border border-slate-800 text-slate-450 rounded-sm">{field.type}</span>
+                        <span className="text-[9px] px-1 bg-slate-850 border border-slate-800 text-slate-450 rounded-sm">{field.type}</span>
                       </td>
                       <td className="p-2">{field.required ? <span className="text-amber-500 font-bold">YES</span> : <span className="text-slate-600">NO</span>}</td>
                       <td className="p-2 text-slate-450 font-sans leading-tight">{field.description}</td>
@@ -321,7 +321,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
             </span>
             <ul className="space-y-1">
               {activeSpec.validationRules.map((rule, idx) => (
-                <li key={idx} className="flex items-start gap-1.5 text-[10.5px] text-slate-405 font-mono leading-normal">
+                <li key={idx} className="flex items-start gap-1.5 text-[10.5px] text-slate-400 font-mono leading-normal">
                   <span className="w-1 h-1 rounded-sm bg-cyan-500/80 shrink-0 mt-2"></span>
                   <span>{rule}</span>
                 </li>
@@ -332,7 +332,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
       </div>
 
       {/* Interactive JSON Sandbox Editor & Validator Console */}
-      <div className="xl:col-span-4 bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '480px' }}>
+      <div className="xl:col-span-4 bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '480px' }}>
         <div className="flex-1 flex flex-col justify-between space-y-4">
           {/* Header Toolbar */}
           <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
@@ -351,7 +351,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
               </button>
               <button
                 onClick={runValidationCheck}
-                className="p-1 px-2.5 bg-cyan-600 hover:bg-cyan-500 active:scale-95 transition-all text-white border border-cyan-550 rounded-sm font-mono text-[9px] flex items-center gap-1 font-bold uppercase leading-none"
+                className="p-1 px-2.5 bg-cyan-500 hover:bg-cyan-400 active:scale-95 transition-all text-on-accent border border-cyan-550 rounded-sm font-mono text-[9px] flex items-center gap-1 font-bold uppercase leading-none"
               >
                 <Play className="h-2.5 w-2.5 fill-white" />
                 EXECUTE
@@ -371,7 +371,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
           </div>
 
           {/* Spec Checker results Console footer */}
-          <div className="bg-[#040508] rounded-sm border border-slate-800 p-2.5 font-mono">
+          <div className="bg-slate-950 rounded-sm border border-slate-800 p-2.5 font-mono">
             <div className="flex items-center justify-between border-b border-slate-850 pb-2 mb-2">
               <h4 className="text-[9px] text-slate-500 flex items-center gap-1 uppercase font-bold tracking-wider">
                 <Terminal className="h-3.5 w-3.5 text-slate-550" /> Validation Debug Console
@@ -411,7 +411,7 @@ export default function SpecExplorer({ selectedSpecId, onSelectSpec, onAddLog }:
                   {/* Render Errors list */}
                   {validationResults.errors.map((err, i) => (
                     <div key={i} className="flex items-start gap-1 text-rose-400">
-                      <XCircle className="h-3 w-3 shrink-0 text-rose-500 mt-0.5" />
+                      <XCircle className="h-3 w-3 shrink-0 text-rose-400 mt-0.5" />
                       <span>{err}</span>
                     </div>
                   ))}

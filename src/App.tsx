@@ -89,17 +89,17 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050608] text-slate-300 font-mono flex flex-col justify-between selection:bg-cyan-500/20 selection:text-white select-none">
+    <div className="min-h-screen bg-slate-950 text-slate-300 font-mono flex flex-col justify-between selection:bg-cyan-500/20 selection:text-white select-none">
       {/* Outer subtle cyan cockpit telemetry aura */}
       <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-cyan-500/3 rounded-full blur-[100px] pointer-events-none"></div>
 
       {/* Primary Wrapper Header Panel */}
-      <header className="h-12 border-b border-slate-800 flex items-center justify-between px-4 bg-[#090b10] shrink-0 sticky top-0 z-30">
+      <header className="h-12 border-b border-slate-800 flex items-center justify-between px-4 bg-slate-850 shrink-0 sticky top-0 z-30">
         <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
           
           {/* Logo Brand titles */}
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-cyan-500 rounded-sm shadow-[0_0_8px_rgba(6,182,212,0.6)] shrink-0 animate-pulse"></div>
+            <div className="w-3 h-3 bg-cyan-500 rounded-sm shadow-[0_0_8px_rgba(69,162,158,0.6)] shrink-0 animate-pulse"></div>
             <div className="flex items-center gap-2">
               <h1 className="text-xs font-bold text-white tracking-tight uppercase">KINETIC-GAIN // PROTOCOL_SUITE</h1>
               <span className="text-[8px] px-1 py-0.2 rounded-sm bg-cyan-950/40 border border-cyan-800/40 text-cyan-400 font-mono font-bold uppercase tracking-widest hidden sm:inline">Suite v1.4</span>
@@ -270,19 +270,19 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col gap-2">
           <div className="flex justify-between items-center text-[9px] text-slate-500 tracking-wider">
             <span>SYSTEM_EVENT_LOG</span>
-            <span className="text-slate-700 uppercase">Console v2.4.0-stable</span>
+            <span className="text-slate-600 uppercase">Console v2.4.0-stable</span>
           </div>
           
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
             {/* Diagnostic Ticker */}
             <div className="flex-1 flex items-center gap-2 font-mono text-[10px] w-full max-w-[850px] overflow-hidden">
-              <div className="px-1.5 py-0.5 bg-[#090b10] text-cyan-400 rounded-sm border border-slate-800 shrink-0 font-bold uppercase tracking-widest">
+              <div className="px-1.5 py-0.5 bg-slate-850 text-cyan-400 rounded-sm border border-slate-800 shrink-0 font-bold uppercase tracking-widest">
                 SYS_FEEDS
               </div>
               <div className="truncate text-slate-400 flex gap-1.5 leading-none">
                 {diagnosticFeeds.length > 0 ? (
                   <>
-                    <span className="text-cyan-600 font-bold shrink-0">&gt;&gt;</span>
+                    <span className="text-cyan-500 font-bold shrink-0">&gt;&gt;</span>
                     <span className="truncate text-slate-350">{diagnosticFeeds[diagnosticFeeds.length - 1]}</span>
                   </>
                 ) : (

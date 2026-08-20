@@ -35,16 +35,16 @@ type ViewMode = 'flow' | 'heatmap' | 'signed' | 'gates';
 
 // Inline Decision-Card runtime gates → display metadata.
 const GATE_META: Record<RuntimeGate, { label: string; short: string; color: string }> = {
-  mcp_permission_broker: { label: 'MCP Permission Broker', short: 'MCP BROKER', color: '#fb7185' },
-  azure_openai_governance_bridge: { label: 'Azure OpenAI Governance Bridge', short: 'AZURE BRIDGE', color: '#60a5fa' },
-  sql_contract_enforcer: { label: 'SQL Contract Enforcer', short: 'SQL CONTRACT', color: '#f59e0b' }
+  mcp_permission_broker: { label: 'MCP Permission Broker', short: 'MCP BROKER', color: '#F5697A' },
+  azure_openai_governance_bridge: { label: 'Azure OpenAI Governance Bridge', short: 'AZURE BRIDGE', color: '#7DB4FB' },
+  sql_contract_enforcer: { label: 'SQL Contract Enforcer', short: 'SQL CONTRACT', color: '#E0A43A' }
 };
 
 // ed25519 signature posture → display metadata.
 const SIG_META: Record<SignatureStatus, { label: string; ring: string; text: string; chip: string }> = {
-  verified: { label: 'ed25519 VERIFIED', ring: '#34d399', text: 'text-emerald-400', chip: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' },
-  unsigned: { label: 'UNSIGNED', ring: '#64748b', text: 'text-slate-400', chip: 'bg-slate-500/10 border-slate-500/30 text-slate-400' },
-  expired: { label: 'KEY EXPIRED', ring: '#f59e0b', text: 'text-amber-400', chip: 'bg-amber-500/10 border-amber-500/30 text-amber-400' }
+  verified: { label: 'ed25519 VERIFIED', ring: '#4ADE80', text: 'text-emerald-400', chip: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' },
+  unsigned: { label: 'UNSIGNED', ring: '#8C98A2', text: 'text-slate-400', chip: 'bg-slate-500/10 border-slate-500/30 text-slate-400' },
+  expired: { label: 'KEY EXPIRED', ring: '#E0A43A', text: 'text-amber-400', chip: 'bg-amber-500/10 border-amber-500/30 text-amber-400' }
 };
 
 export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiagramProps) {
@@ -233,43 +233,43 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
 
   const getNodeColor = (type: string) => {
     switch (type) {
-      case 'publisher': return '#34d399'; // Emerald
-      case 'agent': return '#a78bfa'; // Violet/Indigo
-      case 'auditor': return '#f59e0b'; // Amber
-      case 'search_engine': return '#2dd4bf'; // Teal
-      case 'classroom_hub': return '#60a5fa'; // Light Blue
-      case 'runtime_gate': return '#fb7185'; // Rose
-      case 'spine': return '#22d3ee'; // Cyan
-      case 'incident': return '#ef4444'; // Red
-      default: return '#94a3b8';
+      case 'publisher': return '#4ADE80'; // Emerald
+      case 'agent': return '#A78BFA'; // Violet/Indigo
+      case 'auditor': return '#E0A43A'; // Amber
+      case 'search_engine': return '#3FBFA8'; // Teal
+      case 'classroom_hub': return '#7DB4FB'; // Light Blue
+      case 'runtime_gate': return '#F5697A'; // Rose
+      case 'spine': return '#66FCF1'; // Cyan
+      case 'incident': return '#F2495C'; // Red
+      default: return '#99A3AD';
     }
   };
 
   const getSpecStroke = (spec: SpecType) => {
     switch (spec) {
-      case 'aeo': return 'rgba(52, 211, 153, 0.45)';
+      case 'aeo': return 'rgba(74, 222, 128, 0.45)';
       case 'prompt_provenance': return 'rgba(167, 139, 250, 0.45)';
       case 'ai_evidence': return 'rgba(244, 114, 182, 0.45)';
-      case 'classroom_aup': return 'rgba(251, 113, 133, 0.45)';
-      case 'student_disclosure': return 'rgba(34, 211, 238, 0.45)';
-      case 'mcp_tool_card': return 'rgba(245, 158, 11, 0.45)';
-      case 'tutor_card': return 'rgba(96, 165, 250, 0.45)';
+      case 'classroom_aup': return 'rgba(245, 105, 122, 0.45)';
+      case 'student_disclosure': return 'rgba(102, 252, 241, 0.45)';
+      case 'mcp_tool_card': return 'rgba(224, 164, 58, 0.45)';
+      case 'tutor_card': return 'rgba(125, 180, 251, 0.45)';
       case 'agent_card': return 'rgba(167, 139, 250, 0.45)';
-      default: return '#475569';
+      default: return '#5F6A75';
     }
   };
 
   const getPulseColor = (spec: SpecType) => {
     switch (spec) {
-      case 'aeo': return '#10b981';
-      case 'prompt_provenance': return '#8b5cf6';
-      case 'ai_evidence': return '#ec4899';
-      case 'classroom_aup': return '#f43f5e';
-      case 'student_disclosure': return '#06b6d4';
-      case 'mcp_tool_card': return '#f59e0b';
-      case 'tutor_card': return '#60a5fa';
-      case 'agent_card': return '#a78bfa';
-      default: return '#a78bfa';
+      case 'aeo': return '#2FBF63';
+      case 'prompt_provenance': return '#8B6FF5';
+      case 'ai_evidence': return '#EC5A9F';
+      case 'classroom_aup': return '#F2495C';
+      case 'student_disclosure': return '#45A29E';
+      case 'mcp_tool_card': return '#E0A43A';
+      case 'tutor_card': return '#7DB4FB';
+      case 'agent_card': return '#A78BFA';
+      default: return '#A78BFA';
     }
   };
 
@@ -307,9 +307,9 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
       {/* Topology Canvas Section */}
-      <div className="lg:col-span-3 bg-[#07080c] border border-slate-800 rounded p-4 relative overflow-hidden flex flex-col justify-between select-none" style={{ minHeight: '520px' }}>
+      <div className="lg:col-span-3 bg-slate-900 border border-slate-800 rounded p-4 relative overflow-hidden flex flex-col justify-between select-none" style={{ minHeight: '520px' }}>
         {/* Ambient background grid pattern */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#1e293b 0.61px, transparent 0.61px)', backgroundSize: '16px 16px' }}></div>
+        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#2B3A46 0.61px, transparent 0.61px)', backgroundSize: '16px 16px' }}></div>
 
         {/* Header toolbar */}
         <div className="flex flex-wrap items-center justify-between gap-3 z-10 border-b border-slate-800 pb-3 mb-3">
@@ -387,7 +387,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
         </div>
 
         {/* Dynamic Topology Chart SVG Area */}
-        <div className="relative flex-1 bg-[#040508] border border-slate-800 rounded-sm overflow-hidden flex items-center justify-center p-2" style={{ minHeight: '380px' }}>
+        <div className="relative flex-1 bg-slate-950 border border-slate-800 rounded-sm overflow-hidden flex items-center justify-center p-2" style={{ minHeight: '380px' }}>
 
           {/* Overlay legend guide (mode-aware) */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none hidden sm:flex bg-black/70 p-2 rounded border border-slate-850/40 backdrop-blur-xs select-none shadow-md max-w-[150px]">
@@ -413,9 +413,9 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
             {viewMode === 'signed' && (
               <>
                 <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-semibold border-b border-slate-800/40 pb-1">ed25519 Posture</span>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-emerald-400"><span className="w-2 h-2 rounded-full inline-block border border-emerald-400" style={{ background: '#34d399' }}></span> Key Verified</div>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-amber-400"><span className="w-2 h-2 rounded-full inline-block border border-amber-400" style={{ background: '#f59e0b' }}></span> Key Expired</div>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400"><span className="w-2 h-2 rounded-full inline-block border border-slate-400" style={{ background: '#64748b' }}></span> Unsigned</div>
+                <div className="flex items-center gap-2 text-[10px] font-mono text-emerald-400"><span className="w-2 h-2 rounded-full inline-block border border-emerald-400" style={{ background: '#4ADE80' }}></span> Key Verified</div>
+                <div className="flex items-center gap-2 text-[10px] font-mono text-amber-400"><span className="w-2 h-2 rounded-full inline-block border border-amber-400" style={{ background: '#E0A43A' }}></span> Key Expired</div>
+                <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400"><span className="w-2 h-2 rounded-full inline-block border border-slate-400" style={{ background: '#8C98A2' }}></span> Unsigned</div>
                 <div className="text-[7px] font-mono text-slate-500 mt-1 leading-snug">*Node rings recolor by signing-key status.</div>
               </>
             )}
@@ -462,19 +462,19 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
 
               if (blast) {
                 if (blast.linkSet.has(link.id)) {
-                  strokeColor = 'rgba(244, 63, 94, 0.9)';
+                  strokeColor = 'rgba(242, 73, 92, 0.9)';
                   strokeWidth = 1.2;
                   dash = undefined;
                 } else {
-                  strokeColor = '#1e293b';
+                  strokeColor = '#2B3A46';
                   strokeWidth = 0.4;
                   dash = '1.5,1.5';
                   opacity = 0.2;
                 }
               } else if (viewMode === 'heatmap') {
-                let heat = 'rgba(16, 185, 129, 0.85)';
-                if (latency >= 80 && latency < 200) heat = 'rgba(245, 158, 11, 0.9)';
-                else if (latency >= 200) heat = 'rgba(239, 68, 68, 0.95)';
+                let heat = 'rgba(47, 191, 99, 0.85)';
+                if (latency >= 80 && latency < 200) heat = 'rgba(224, 164, 58, 0.9)';
+                else if (latency >= 200) heat = 'rgba(242, 73, 92, 0.95)';
                 strokeColor = heat;
                 strokeWidth = latency >= 200 ? 1.4 : 0.8;
                 dash = undefined;
@@ -484,7 +484,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                   strokeWidth = 1.1;
                   dash = undefined;
                 } else {
-                  strokeColor = '#1e293b';
+                  strokeColor = '#2B3A46';
                   strokeWidth = 0.45;
                   dash = '1.5,1.5';
                   opacity = 0.4;
@@ -506,7 +506,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                       y1={src.coordinates.y}
                       x2={dest.coordinates.x}
                       y2={dest.coordinates.y}
-                      stroke={blast ? 'rgba(244, 63, 94, 0.18)' : 'rgba(239, 68, 68, 0.18)'}
+                      stroke={blast ? 'rgba(242, 73, 92, 0.18)' : 'rgba(242, 73, 92, 0.18)'}
                       strokeWidth={2.6}
                       className="animate-pulse"
                     />
@@ -530,7 +530,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                     <g transform={`translate(${mx}, ${my}) scale(${gateScale})`} className="pointer-events-none">
                       <path
                         d="M0,-2 L1.7,-1.2 L1.7,0.6 C1.7,1.7 0.9,2.3 0,2.7 C-0.9,2.3 -1.7,1.7 -1.7,0.6 L-1.7,-1.2 Z"
-                        fill="#040508"
+                        fill="#0B0C10"
                         stroke={GATE_META[link.gate].color}
                         strokeWidth="0.35"
                       />
@@ -566,8 +566,8 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                         width="9.6"
                         height="5"
                         rx="1"
-                        fill="#020407"
-                        stroke={latency >= 200 ? '#ef4444' : latency >= 80 ? '#f59e0b' : '#10b981'}
+                        fill="#0B0C10"
+                        stroke={latency >= 200 ? '#F2495C' : latency >= 80 ? '#E0A43A' : '#2FBF63'}
                         strokeWidth="0.25"
                         className="transition-colors group-hover:fill-slate-900"
                       />
@@ -576,7 +576,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                         y="0.9"
                         fontSize="1.6"
                         fontWeight="bold"
-                        fill={latency >= 200 ? '#fca5a5' : latency >= 80 ? '#fde047' : '#34d399'}
+                        fill={latency >= 200 ? '#F98CA0' : latency >= 80 ? '#E8C23F' : '#4ADE80'}
                         className="font-mono tracking-tighter"
                       >
                         {latency}ms
@@ -622,7 +622,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
               const isActive = selectedNodeId === node.id;
               const themeColor = getNodeColor(node.type);
               const ringColor = isActive
-                ? '#ffffff'
+                ? '#EAF6F5'
                 : viewMode === 'signed'
                   ? SIG_META[node.signature].ring
                   : themeColor;
@@ -647,7 +647,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                     <circle
                       r="4.6"
                       fill="none"
-                      stroke={isOrigin ? '#f43f5e' : themeColor}
+                      stroke={isOrigin ? '#F2495C' : themeColor}
                       strokeWidth="0.12"
                       className="animate-ping"
                       opacity="0.35"
@@ -656,13 +656,13 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
 
                   {/* Node base shape by kind */}
                   {node.type === 'runtime_gate' ? (
-                    <rect x="-2.7" y="-2.7" width="5.4" height="5.4" rx="1.3" fill="#0f172a" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
+                    <rect x="-2.7" y="-2.7" width="5.4" height="5.4" rx="1.3" fill="#0F172A" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
                   ) : node.type === 'spine' ? (
-                    <rect x="-5.2" y="-2" width="10.4" height="4" rx="1.6" fill="#0f172a" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
+                    <rect x="-5.2" y="-2" width="10.4" height="4" rx="1.6" fill="#0F172A" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
                   ) : node.type === 'incident' ? (
-                    <polygon points="0,-3.4 3.1,2.5 -3.1,2.5" fill="#0f172a" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
+                    <polygon points="0,-3.4 3.1,2.5 -3.1,2.5" fill="#0F172A" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
                   ) : (
-                    <circle r="2.8" fill="#0f172a" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
+                    <circle r="2.8" fill="#0F172A" stroke={ringColor} strokeWidth={ringWidth} style={{ transition: 'stroke 0.3s ease' }} />
                   )}
 
                   {/* Core indicator keeps node-type identity even in signed mode */}
@@ -677,7 +677,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
                   <text
                     y={node.type === 'spine' ? 5.0 : 5.8}
                     textAnchor="middle"
-                    fill={isActive ? '#ffffff' : '#94a3b8'}
+                    fill={isActive ? '#EAF6F5' : '#99A3AD'}
                     fontSize="1.8"
                     fontWeight={isActive ? 'bold' : 'normal'}
                     className="font-mono tracking-wide pointer-events-none select-none"
@@ -697,7 +697,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
       </div>
 
       {/* Selected Node Details Side Console */}
-      <div className="bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between">
+      <div className="bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between">
         {activeNode ? (
           <div className="flex-1 flex flex-col justify-between">
             <div>
@@ -845,7 +845,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
             <div className="pt-4 border-t border-slate-800 mt-4 space-y-2">
               <button
                 onClick={triggerManualDiagnostics}
-                className="w-full bg-cyan-600 hover:bg-cyan-500 active:scale-[0.98] transition-all text-white py-1.5 rounded-sm text-[10px] font-mono font-bold tracking-widest flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/10"
+                className="w-full bg-cyan-500 hover:bg-cyan-400 active:scale-[0.98] transition-all text-on-accent py-1.5 rounded-sm text-[10px] font-mono font-bold tracking-widest flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/10"
               >
                 <Activity className="h-3 w-3" />
                 PING NODE INSPECTOR
@@ -874,7 +874,7 @@ export default function TopologyDiagram({ onSelectSpec, onAddLog }: TopologyDiag
           <div className="flex flex-col items-center justify-center text-center py-20 text-slate-600 font-mono">
             <Radio className="h-6 w-6 text-slate-800 animate-pulse mb-2" />
             <span className="text-[10px]">No Node selected</span>
-            <span className="text-[8px] text-slate-700 mt-1">Click any topology node to wire up diagnostics</span>
+            <span className="text-[8px] text-slate-600 mt-1">Click any topology node to wire up diagnostics</span>
           </div>
         )}
       </div>

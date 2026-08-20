@@ -466,47 +466,47 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     const doc = new jsPDF();
     
     // Page canvas background fill style
-    doc.setFillColor(11, 15, 23); // very dark midnight bg matching app theme
+    doc.setFillColor(11, 12, 16); // very dark midnight bg matching app theme
     doc.rect(0, 0, 210, 297, "F");
     
     // Header box outline and styling accents
-    doc.setDrawColor(34, 211, 238); // cyan 400
+    doc.setDrawColor(102, 252, 241); // cyan 400
     doc.setLineWidth(1);
     doc.rect(10, 10, 190, 42);
     
-    doc.setFillColor(34, 211, 238);
+    doc.setFillColor(102, 252, 241);
     doc.rect(10, 10, 190, 4, "F");
     
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(234, 246, 245);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.text("KINETIC-GAIN OPERATOR TELEMETRY", 16, 23);
     
     doc.setFont("helvetica", "italic");
     doc.setFontSize(9);
-    doc.setTextColor(100, 116, 139); // slate 500
+    doc.setTextColor(153, 163, 173); // slate 500
     doc.text("SYSTEM JITTER METRIC STATUS REPORT // SIMULATED DEMONSTRATION DATA, NOT LIVE", 16, 29);
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.setTextColor(226, 232, 240); // slate 200
+    doc.setTextColor(220, 228, 231); // slate 200
     doc.text(`REPORTING TIME: ${new Date().toLocaleString()}`, 16, 38);
     doc.text(`SRE WORKSPACE TARGET: DOCKER CONTAINER CONTAINER-PORT: 3000`, 16, 44);
     
     // Section divider lines
-    doc.setDrawColor(30, 41, 59); // slate 800
+    doc.setDrawColor(43, 58, 70); // slate 800
     doc.setLineWidth(0.5);
     doc.line(10, 62, 200, 62);
     
     // Section header and key measurements
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    doc.setTextColor(34, 211, 238);
+    doc.setTextColor(102, 252, 241);
     doc.text("SLA DEVIATION PERFORMANCE METRICS SUMMARY (ROLLING)", 14, 72);
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(234, 246, 245);
     
     const avg = Math.floor(latencyHistory.reduce((a,b)=>a+b,0)/latencyHistory.length);
     const max = Math.max(...latencyHistory);
@@ -517,13 +517,13 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     let metricY = 84;
     const drawStat = (label: string, value: string, desc: string) => {
       doc.setFont("helvetica", "bold");
-      doc.setTextColor(148, 163, 184); // slate 400
+      doc.setTextColor(173, 183, 191); // slate 400
       doc.text(`${label}:`, 16, metricY);
-      doc.setTextColor(255, 255, 255);
+      doc.setTextColor(234, 246, 245);
       doc.text(value, 72, metricY);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
-      doc.setTextColor(100, 116, 139);
+      doc.setTextColor(153, 163, 173);
       doc.text(`(${desc})`, 112, metricY);
       doc.setFontSize(10);
       metricY += 10;
@@ -537,17 +537,17 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     
     // Mid Divider
     doc.setLineWidth(0.5);
-    doc.setDrawColor(30, 41, 59);
+    doc.setDrawColor(43, 58, 70);
     doc.line(10, 142, 200, 142);
     
     // Performance Line Chart header inside PDF
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    doc.setTextColor(34, 211, 238);
+    doc.setTextColor(102, 252, 241);
     doc.text("ROLLING LATENCY JITTER HISTOGRAM WAVEFORM", 14, 154);
     
     doc.setLineWidth(0.3);
-    doc.setDrawColor(51, 65, 85);
+    doc.setDrawColor(95, 106, 117);
     doc.rect(14, 162, 182, 60);
     
     // Draw gridlines in pdf
@@ -572,7 +572,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     });
     
     doc.setLineWidth(0.8);
-    doc.setDrawColor(6, 182, 212); // cyan line
+    doc.setDrawColor(69, 162, 158); // cyan line
     for (let i = 0; i < pts.length - 1; i++) {
       doc.line(pts[i].x, pts[i].y, pts[i+1].x, pts[i+1].y);
     }
@@ -614,19 +614,19 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
         doc.setDrawColor(168, 85, 247); // violet
         doc.setLineWidth(0.5);
       } else {
-        doc.setDrawColor(6, 182, 212); // cyan
+        doc.setDrawColor(69, 162, 158); // cyan
         doc.setLineWidth(0.8);
       }
       doc.line(combinedPts[i].x, combinedPts[i].y, combinedPts[i+1].x, combinedPts[i+1].y);
     }
     
     // Draw threshold baseline in red
-    doc.setDrawColor(244, 63, 94); // rose
+    doc.setDrawColor(242, 73, 92); // rose
     doc.setLineWidth(0.4);
     const baselineHeight = (chartY + chartH) - (thresh / maxScale) * chartH;
     doc.line(chartX, baselineHeight, chartX + chartW, baselineHeight);
     
-    doc.setTextColor(244, 63, 94);
+    doc.setTextColor(242, 73, 92);
     doc.setFontSize(8);
     doc.text("SLA THRESHOLD BASELINE LIMIT", chartX + 3, baselineHeight - 2);
     
@@ -636,15 +636,15 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
         doc.setFillColor(168, 85, 247); // violet dot
         doc.circle(pt.x, pt.y, 1.0, "F");
       } else {
-        doc.setFillColor(6, 182, 212); // cyan dot
+        doc.setFillColor(69, 162, 158); // cyan dot
         doc.circle(pt.x, pt.y, 1.2, "F");
       }
     });
     
     // Legends
-    doc.setFillColor(6, 182, 212);
+    doc.setFillColor(69, 162, 158);
     doc.rect(14, 226, 4, 2, "F");
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(234, 246, 245);
     doc.setFontSize(8);
     doc.text("HISTORICAL OBSERVATION PATH (CYAN)", 20, 228);
     
@@ -653,7 +653,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     doc.text("SRE TREND PROJECTION FORECAST (VIOLET)", 100, 228);
     
     // Footer notes
-    doc.setTextColor(71, 85, 105);
+    doc.setTextColor(140, 152, 162);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
     doc.text("SIMULATED DATA FOR DEMONSTRATION. NOT A LIVE FEED OFF PRODUCTION -- SEE README \"HONEST FRAMING\".", 14, 275);
@@ -731,7 +731,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
     <div className="space-y-4">
       
       {/* Dynamic SRE Dashboard Preset Administration Board */}
-      <div className="p-4 bg-[#07080c] border border-slate-800 rounded-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="p-4 bg-slate-900 border border-slate-800 rounded-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="space-y-1 select-none">
           <div className="flex items-center gap-2">
             <LayoutGrid className="h-4 w-4 text-cyan-400 animate-pulse" />
@@ -796,7 +796,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="p-2.5 bg-cyan-950/25 border border-cyan-800 text-cyan-400 text-[10px] font-mono rounded-sm flex items-center justify-between shadow-[0_0_12px_rgba(6,182,212,0.1)]"
+            className="p-2.5 bg-cyan-950/25 border border-cyan-800 text-cyan-400 text-[10px] font-mono rounded-sm flex items-center justify-between shadow-[0_0_12px_rgba(69,162,158,0.1)]"
           >
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-cyan-400 animate-ping rounded-full inline-block"></span>
@@ -811,7 +811,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
         
         {/* Sidebar Options Panel: Toggle widgets & layouts */}
-        <div className="xl:col-span-3 bg-[#07080c] border border-slate-800 rounded p-4 space-y-5 flex flex-col justify-between">
+        <div className="xl:col-span-3 bg-slate-900 border border-slate-800 rounded p-4 space-y-5 flex flex-col justify-between">
           <div className="space-y-4">
             
             {/* Widget Toggles Block */}
@@ -962,7 +962,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                 return (
                   <div 
                     key={id} 
-                    className={`${getWidgetColSpan(id)} bg-[#07080c] border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
+                    className={`${getWidgetColSpan(id)} bg-slate-900 border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
                       draggingId === id ? 'opacity-30 border-dashed border-cyan-500 scale-[0.98]' : dragOverId === id ? 'border-cyan-500 bg-cyan-950/5' : 'border-slate-800'
                     }`}
                     style={{ minHeight: '380px' }}
@@ -1053,20 +1053,20 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                     {/* Interactive Interactive SVG Flow Graph Arena */}
                     <div className="flex-1 bg-black/65 rounded border border-slate-800 relative overflow-hidden flex items-center justify-center min-h-[220px]">
                       {/* Technical sector markings grid bounds overlay */}
-                      <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none"></div>
+                      <div className="absolute inset-0 bg-[radial-gradient(#2B3A46_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none"></div>
 
                       <svg width="100%" height="240" viewBox="0 0 760 310" className="z-10 select-none">
                         
                         {/* Define glowing cyan marker arrows */}
                         <defs>
                           <marker id="arrow" viewBox="0 0 10 10" refX="17" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#0ea5e9" opacity="0.65" />
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#45A29E" opacity="0.65" />
                           </marker>
                           <marker id="arrow-warn" viewBox="0 0 10 10" refX="17" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#eab308" />
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#E0A43A" />
                           </marker>
                           <marker id="arrow-error" viewBox="0 0 10 10" refX="17" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" className="animate-pulse" />
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#F2495C" className="animate-pulse" />
                           </marker>
                         </defs>
 
@@ -1132,7 +1132,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                               <circle 
                                 cx={px} cy={py} 
                                 r={isCritical ? '3.5' : '2.5'} 
-                                fill={isCritical ? '#ef4444' : isSlaAlert ? '#eab308' : '#22d3ee'}
+                                fill={isCritical ? '#F2495C' : isSlaAlert ? '#E0A43A' : '#66FCF1'}
                                 className={`${isCritical ? 'animate-ping' : ''}`}
                                 opacity="0.9"
                               />
@@ -1173,19 +1173,19 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                           if (nodeObj.key === 'agent' && (Object.keys(channelLatencies).some(k => (channelLatencies[k] ?? 0) >= ((latencyThresholds[k] ?? 180) + 100)))) isLinkCritical = true;
 
                           let borderColor = 'stroke-slate-800';
-                          let fillBg = 'fill-[#040508]/95';
+                          let fillBg = 'fill-slate-950/95';
                           let textColor = 'fill-slate-300';
-                          let accentColor = 'fill-[#22d3ee]';
+                          let accentColor = 'fill-cyan-400';
 
                           if (isLinkDegraded) {
                             borderColor = 'stroke-yellow-500/70';
-                            fillBg = 'fill-[#0d0a02]/95';
+                            fillBg = 'fill-amber-950/95';
                             textColor = 'fill-yellow-200';
                             accentColor = 'fill-yellow-400';
                           }
                           if (isLinkCritical) {
                             borderColor = 'stroke-rose-500/90';
-                            fillBg = 'fill-[#120406]/95';
+                            fillBg = 'fill-rose-950/95';
                             textColor = 'fill-rose-200';
                             accentColor = 'fill-rose-450';
                           }
@@ -1266,7 +1266,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                 return (
                   <div 
                     key={id} 
-                    className={`${getWidgetColSpan(id)} bg-[#07080c] border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
+                    className={`${getWidgetColSpan(id)} bg-slate-900 border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
                       draggingId === id ? 'opacity-30 border-dashed border-cyan-500 scale-[0.98]' : dragOverId === id ? 'border-cyan-500 bg-cyan-950/5' : 'border-slate-800'
                     }`}
                     draggable
@@ -1410,7 +1410,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                 return (
                   <div 
                     key={id} 
-                    className={`${getWidgetColSpan(id)} bg-[#07080c] border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
+                    className={`${getWidgetColSpan(id)} bg-slate-900 border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
                       draggingId === id ? 'opacity-30 border-dashed border-cyan-500 scale-[0.98]' : dragOverId === id ? 'border-cyan-500 bg-cyan-950/5' : 'border-slate-800'
                     }`}
                     draggable
@@ -1508,7 +1508,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                           </div>
 
                           {/* SLA Alert Trigger Threshold Tuning Module */}
-                          <div className="bg-[#020306]/75 border border-slate-900 px-2 py-1.5 rounded space-y-1.5 font-mono">
+                          <div className="bg-slate-950/75 border border-slate-900 px-2 py-1.5 rounded space-y-1.5 font-mono">
                             <div className="flex justify-between items-center text-[7.5px] font-extrabold text-slate-500 uppercase tracking-widest select-none">
                               <span className="flex items-center gap-1">
                                 <Sliders className="h-3 w-3 text-cyan-400 animate-pulse" />
@@ -1566,7 +1566,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                             {alertsSearchQuery && (
                               <button
                                 onClick={() => setAlertsSearchQuery('')}
-                                className="absolute right-2 top-1.5 text-slate-500 hover:text-slate-305 font-mono text-[8px] font-bold"
+                                className="absolute right-2 top-1.5 text-slate-500 hover:text-slate-300 font-mono text-[8px] font-bold"
                               >
                                 [CLEAR]
                               </button>
@@ -1613,13 +1613,13 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                           <AlertTriangle 
                                             className={`h-3.5 w-3.5 shrink-0 select-none ${
                                               variance >= 80 
-                                                ? 'border-rose-500 animate-pulse text-rose-500 h-3.5 w-3.5 AlertTriangle' 
+                                                ? 'border-rose-500 animate-pulse text-rose-400 h-3.5 w-3.5 AlertTriangle' 
                                                 : 'AlertTriangle h-3.5 w-3.5 text-cyan-400 animate-pulse'
                                             }`} 
                                             style={{
                                               filter: variance >= 80 
-                                                ? 'drop-shadow(0 0 8px rgba(244, 63, 94, 0.95))' 
-                                                : 'drop-shadow(0 0 3px rgba(34, 211, 238, 0.4))'
+                                                ? 'drop-shadow(0 0 8px rgba(242, 73, 92, 0.95))' 
+                                                : 'drop-shadow(0 0 3px rgba(102, 252, 241, 0.4))'
                                             }}
                                             title={`Current Variance: +${variance}ms`}
                                           />
@@ -1641,7 +1641,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                                   className="fixed inset-0 z-40 bg-transparent" 
                                                   onClick={() => setActiveDropdownAlertId(null)}
                                                 />
-                                                <div className="absolute left-0 mt-1 w-36 bg-[#090b11] border border-slate-800 rounded shadow-2xl py-1 z-50 text-[8px] font-mono text-slate-300 divide-y divide-slate-900 select-none">
+                                                <div className="absolute left-0 mt-1 w-36 bg-slate-850 border border-slate-800 rounded shadow-2xl py-1 z-50 text-[8px] font-mono text-slate-300 divide-y divide-slate-900 select-none">
                                                   <button
                                                     onClick={() => {
                                                       acknowledgeAlert(al.id);
@@ -1744,7 +1744,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                           <span className="flex-1">{al.msg}</span>
                                           <button
                                             onClick={() => handleCopyAlert(al.id, al.msg)}
-                                            className="p-1 rounded text-slate-500 hover:text-cyan-400 hover:bg-slate-905 border border-transparent hover:border-slate-800 transition-all cursor-pointer flex items-center justify-center shrink-0"
+                                            className="p-1 rounded text-slate-500 hover:text-cyan-400 hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all cursor-pointer flex items-center justify-center shrink-0"
                                             title="Copy Incident details to clipboard"
                                           >
                                             {copiedId === al.id ? (
@@ -1801,7 +1801,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                 return (
                   <div 
                     key={id} 
-                    className={`${getWidgetColSpan(id)} bg-[#07080c] border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
+                    className={`${getWidgetColSpan(id)} bg-slate-900 border rounded p-4 flex flex-col justify-between transition-all duration-200 ${
                       draggingId === id ? 'opacity-30 border-dashed border-cyan-500 scale-[0.98]' : dragOverId === id ? 'border-cyan-500 bg-cyan-950/5' : 'border-slate-800'
                     }`}
                     draggable
@@ -1872,7 +1872,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                       <div className="flex flex-wrap items-center gap-2 bg-black/90 p-1 rounded border border-slate-850">
                         {/* Auto-Hide Delay setting */}
                         <div className="flex items-center gap-1 px-1.5 py-0.5 bg-slate-950 border border-slate-900 rounded text-slate-450 font-mono text-[8px] font-medium">
-                          <span className="text-slate-520 uppercase select-none">AUTO-HIDE:</span>
+                          <span className="text-slate-500 uppercase select-none">AUTO-HIDE:</span>
                           <select
                             value={autoHideDelaySec}
                             onChange={(e) => {
@@ -1911,7 +1911,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
 
                         {/* Jitter Wave Smoothing Signal Filter */}
                         <div className="flex items-center gap-1 px-1.5 py-0.5 bg-slate-950 border border-slate-900 rounded text-slate-450 font-mono text-[8px] font-medium" title="Apply signal filtering algorithms to reduce high-frequency noise and highlight structural SLA breach trends">
-                          <span className="text-slate-520 uppercase select-none">FILTER:</span>
+                          <span className="text-slate-500 uppercase select-none">FILTER:</span>
                           <select
                             value={filterType}
                             onChange={(e) => {
@@ -1947,7 +1947,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                         {/* PDF Metric Report Button */}
                         <button 
                           onClick={handleDownloadPDF}
-                          className="hover:bg-[#1a2c22] shadow px-2 py-[3px] bg-emerald-950/20 rounded text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-mono text-[8px] font-bold border border-emerald-950/60 hover:border-emerald-500/30 transition-all cursor-pointer select-none"
+                          className="hover:bg-emerald-950 shadow px-2 py-[3px] bg-emerald-950/20 rounded text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-mono text-[8px] font-bold border border-emerald-950/60 hover:border-emerald-500/30 transition-all cursor-pointer select-none"
                           title="Download high-contrast PDF telemetry & vector chart representation"
                         >
                           <FileText className="h-3 w-3 text-emerald-400 shrink-0" />
@@ -1960,7 +1960,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                     <div className="space-y-3">
                       <div className="flex justify-between items-center text-[9px] font-mono select-none">
                         <span className="text-slate-500 uppercase tracking-wide">Historical delay waves (preceding 15 ticks)</span>
-                        <span className="text-cyan-455 font-bold">AVG JITTER: {Math.floor(latencyHistory.reduce((a,b)=>a+b,0)/latencyHistory.length)}ms</span>
+                        <span className="text-cyan-450 font-bold">AVG JITTER: {Math.floor(latencyHistory.reduce((a,b)=>a+b,0)/latencyHistory.length)}ms</span>
                       </div>
 
                       <div className="bg-black/85 rounded border border-slate-800 p-1 flex flex-col items-center justify-center relative select-none">
@@ -1992,8 +1992,8 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                         >
                           <defs>
                             <linearGradient id="jitterGradient" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#06b6d4" />
-                              <stop offset="100%" stopColor="#000" />
+                              <stop offset="0%" stopColor="#45A29E" />
+                              <stop offset="100%" stopColor="#0B0C10" />
                             </linearGradient>
                             
                             <clipPath id="graphClip">
@@ -2002,7 +2002,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                           </defs>
 
                           {/* Grid Background static layer */}
-                          <g stroke="#121b24" strokeWidth="0.5">
+                          <g stroke="#1F2833" strokeWidth="0.5">
                             <line x1="0" y1="20" x2="540" y2="20" />
                             <line x1="0" y1="50" x2="540" y2="50" />
                             <line x1="0" y1="80" x2="540" y2="80" />
@@ -2018,7 +2018,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                               const baselineY = 100 - Math.min(slaThreshold / maxVal * 100, 95);
                               return (
                                 <g>
-                                  <line x1="0" y1={baselineY} x2="540" y2={baselineY} stroke="#f43f5e" strokeWidth="1.25" strokeDasharray="3, 3" opacity="0.75" />
+                                  <line x1="0" y1={baselineY} x2="540" y2={baselineY} stroke="#F2495C" strokeWidth="1.25" strokeDasharray="3, 3" opacity="0.75" />
                                   <text x="10" y={baselineY - 3} className="text-[6.5px] font-mono fill-rose-500 font-extrabold tracking-wider select-none uppercase">
                                     LIVE SLA GATE Limit ({slaThreshold}ms)
                                   </text>
@@ -2076,7 +2076,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                       layout
                                       points={rawPolylineStr}
                                       fill="none"
-                                      stroke="#334155"
+                                      stroke="#2B3A46"
                                       strokeWidth="1"
                                       opacity="0.55"
                                       strokeDasharray="3,3"
@@ -2098,7 +2098,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                     layout
                                     points={polylineStr} 
                                     fill="none" 
-                                    stroke="#06b6d4" 
+                                    stroke="#45A29E" 
                                     strokeWidth="1.5" 
                                     transition={{ duration: 0.45, ease: "easeInOut" }}
                                   />
@@ -2109,7 +2109,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                       layout
                                       points={predictionPolylineStr}
                                       fill="none"
-                                      stroke="#a855f7"
+                                      stroke="#A855F7"
                                       strokeWidth="1.4"
                                       strokeDasharray="3,3"
                                       transition={{ duration: 0.45, ease: "easeInOut" }}
@@ -2123,7 +2123,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                       key={`circle-${p.i}`} 
                                       cx={p.px} cy={p.py} 
                                       r={hoveredJitterIndex === p.i ? 3.5 : 1.8} 
-                                      fill={p.val > (latencyThresholds['pub-agent'] ?? 180) ? '#f59e0b' : '#0ea5e9'} 
+                                      fill={p.val > (latencyThresholds['pub-agent'] ?? 180) ? '#E0A43A' : '#45A29E'} 
                                       opacity={hoveredJitterIndex === p.i ? 1 : 0.85}
                                       transition={{ duration: 0.15 }}
                                     />
@@ -2136,7 +2136,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                       key={`circle-pred-${idx}`} 
                                       cx={p.px} cy={p.py} 
                                       r={hoveredProjectedIndex === idx ? 3.5 : 1.8} 
-                                      fill="#c084fc"
+                                      fill="#C084FC"
                                       opacity={hoveredProjectedIndex === idx ? 1 : 0.75}
                                       transition={{ duration: 0.15 }}
                                     />
@@ -2186,8 +2186,8 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
 
                                         return (
                                           <g>
-                                            <line x1={hPoint.px} y1={0} x2={hPoint.px} y2={100} stroke="#22d3ee" strokeWidth="0.75" strokeDasharray="2,2" />
-                                            <circle cx={hPoint.px} cy={hPoint.py} r="5" fill="none" stroke="#22d3ee" strokeWidth="1" className="animate-pulse" />
+                                            <line x1={hPoint.px} y1={0} x2={hPoint.px} y2={100} stroke="#66FCF1" strokeWidth="0.75" strokeDasharray="2,2" />
+                                            <circle cx={hPoint.px} cy={hPoint.py} r="5" fill="none" stroke="#66FCF1" strokeWidth="1" className="animate-pulse" />
                                             
                                             {/* Tooltip background */}
                                             <rect 
@@ -2196,10 +2196,10 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                               width="68" 
                                               height="28" 
                                               rx="2" 
-                                              fill="#04060b" 
-                                              stroke="#22d3ee" 
+                                              fill="#0B0C10" 
+                                              stroke="#66FCF1" 
                                               strokeWidth="1" 
-                                              filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))"
+                                              filter="drop-shadow(0 2px 4px rgba(11, 12, 16,0.5))"
                                             />
                                             <text 
                                               x={tooltipX + 6} 
@@ -2234,8 +2234,8 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
 
                                         return (
                                           <g>
-                                            <line x1={p.px} y1={0} x2={p.px} y2={100} stroke="#a855f7" strokeWidth="0.75" strokeDasharray="2,2" />
-                                            <circle cx={p.px} cy={p.py} r="5" fill="none" stroke="#a855f7" strokeWidth="1" className="animate-pulse" />
+                                            <line x1={p.px} y1={0} x2={p.px} y2={100} stroke="#A855F7" strokeWidth="0.75" strokeDasharray="2,2" />
+                                            <circle cx={p.px} cy={p.py} r="5" fill="none" stroke="#A855F7" strokeWidth="1" className="animate-pulse" />
                                             
                                             {/* Tooltip background */}
                                             <rect 
@@ -2244,10 +2244,10 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                                               width="68" 
                                               height="32" 
                                               rx="2" 
-                                              fill="#090514" 
-                                              stroke="#a855f7" 
+                                              fill="#1B1238" 
+                                              stroke="#A855F7" 
                                               strokeWidth="1" 
-                                              filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))"
+                                              filter="drop-shadow(0 2px 4px rgba(11, 12, 16,0.5))"
                                             />
                                             <text 
                                               x={tooltipX + 6} 
@@ -2330,7 +2330,7 @@ export default function OperatorDashboard({ onAddLog }: OperatorDashboardProps) 
                       </div>
 
                       {/* Navigation Interactive Zoom & Pan SRE HUD Controls */}
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#020306]/70 border border-slate-900 rounded p-1.5 text-[7.5px] font-mono font-bold text-slate-500 gap-2 select-none select-none">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-slate-950/70 border border-slate-900 rounded p-1.5 text-[7.5px] font-mono font-bold text-slate-500 gap-2 select-none select-none">
                         <div className="flex items-center gap-1.5">
                           <span className="text-cyan-500">VIEW CONSTRUCT:</span>
                           <span>ZOOM: {zoomLevel}x</span>

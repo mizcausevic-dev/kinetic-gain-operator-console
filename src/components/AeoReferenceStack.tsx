@@ -142,7 +142,7 @@ export default function AeoReferenceStack({ onAddLog }: AeoReferenceStackProps) 
             <button
               onClick={handleRunSimulation}
               disabled={simulationStep === 'crawling' || simulationStep === 'indexing' || simulationStep === 'generating'}
-              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-mono font-bold text-xs rounded transition-all flex items-center gap-2 border border-emerald-500 shadow-md shadow-emerald-500/10"
+              className="px-3.5 py-1.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-on-accent font-mono font-bold text-xs rounded transition-all flex items-center gap-2 border border-emerald-500 shadow-md shadow-emerald-500/10"
             >
               <Play className="h-3 w-3 fill-white" />
               {simulationStep === 'idle' ? 'RUN CRAWL WORKFLOW' : simulationStep.toUpperCase() + '...'}
@@ -179,7 +179,7 @@ export default function AeoReferenceStack({ onAddLog }: AeoReferenceStackProps) 
                       </div>
                     </div>
 
-                    <div className="text-[10px] text-slate-500 border border-slate-805 px-2 py-0.5 rounded bg-slate-950/40 font-semibold hidden sm:block">
+                    <div className="text-[10px] text-slate-500 border border-slate-800 px-2 py-0.5 rounded bg-slate-950/40 font-semibold hidden sm:block">
                       {layer.metrics}
                     </div>
                   </button>

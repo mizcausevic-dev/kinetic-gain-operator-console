@@ -105,7 +105,7 @@ export default function McpServerDashboard({ onAddLog }: McpServerDashboardProps
     <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
       
       {/* Bento listing of all MCP Tools */}
-      <div className="xl:col-span-8 bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '520px' }}>
+      <div className="xl:col-span-8 bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '520px' }}>
         <div className="flex-1 flex flex-col justify-between space-y-4">
           
           {/* Header */}
@@ -142,8 +142,8 @@ export default function McpServerDashboard({ onAddLog }: McpServerDashboardProps
                     onClick={() => handleToolSelect(tool.name)}
                     className={`text-left p-2.5 rounded-sm border font-mono transition-all flex flex-col justify-between hover:bg-slate-900/60 ${
                       isSelected 
-                        ? 'bg-cyan-950/15 border-cyan-600/50 text-slate-100 shadow-[0_0_8px_rgba(6,182,212,0.05)]' 
-                        : 'bg-black/30 border-slate-850/80 text-slate-405'
+                        ? 'bg-cyan-950/15 border-cyan-600/50 text-slate-100 shadow-[0_0_8px_rgba(69,162,158,0.05)]' 
+                        : 'bg-black/30 border-slate-850/80 text-slate-400'
                     }`}
                   >
                     <div>
@@ -210,7 +210,7 @@ export default function McpServerDashboard({ onAddLog }: McpServerDashboardProps
       </div>
 
       {/* Inputs Tester and execution console side block */}
-      <div className="xl:col-span-4 bg-[#07080c] border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '520px' }}>
+      <div className="xl:col-span-4 bg-slate-900 border border-slate-800 rounded p-4 flex flex-col justify-between" style={{ minHeight: '520px' }}>
         <div className="flex-1 flex flex-col justify-between space-y-4">
           
           {/* Parameters settings header */}
@@ -253,7 +253,7 @@ export default function McpServerDashboard({ onAddLog }: McpServerDashboardProps
             <button
               onClick={runMcpToolSimulation}
               disabled={isExecuting}
-              className="w-full bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 py-2 rounded-sm text-white text-[10px] uppercase font-mono font-bold tracking-widest flex items-center justify-center gap-1.5 mt-4 shadow-lg shadow-cyan-500/10 active:scale-95 transition-all cursor-pointer"
+              className="w-full bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 py-2 rounded-sm text-on-accent text-[10px] uppercase font-mono font-bold tracking-widest flex items-center justify-center gap-1.5 mt-4 shadow-lg shadow-cyan-500/10 active:scale-95 transition-all cursor-pointer"
             >
               <Play className="h-3 w-3 fill-white" />
               {isExecuting ? 'EXECUTING MCP PORT...' : 'DEPLOY DOCK RUN'}
